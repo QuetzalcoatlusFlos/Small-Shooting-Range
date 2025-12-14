@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录 - Hello Vuln</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
+        .login-form { background: #f5f5f5; padding: 30px; border-radius: 8px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="password"] { 
+            width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; 
+        }
+        button { 
+            background: #007bff; color: white; padding: 10px 20px; 
+            border: none; border-radius: 4px; cursor: pointer; 
+        }
+        .error { color: red; margin-top: 10px; }
+        .hint { 
+            background: #e9f7fe; padding: 15px; border-radius: 5px; 
+            margin-top: 20px; font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h2>🔑 用户登录</h2>
+        
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">用户名:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">密码:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit">登录</button>
+        </form>
+        
+        <div class="hint">
+            <strong>测试账号:</strong><br>
+            用户名: admin, 密码: admin123<br>
+            用户名: test, 密码: test123<br><br>
+            
+            <strong>💡 SQL注入提示:</strong><br>
+            尝试在用户名输入: <code>admin' -- </code><br>
+            密码可以留空或任意输入
+        </div>
+    </div>
+</body>
+</html>
