@@ -8,23 +8,23 @@
 - Git
 
 ### 部署步骤
-
 1. 克隆项目
 ```bash
 git clone https://github.com/你的用户名/hello-vuln.git
 cd hello-vuln
-启动应用
 ```
+2. 启动应用
 ```bash
 docker compose up --build
 ```
-访问应用
-打开浏览器访问：http://localhost:8080
+3. 访问应用
+打开浏览器访问：http://localhost:5001
 
-默认账号
-用户名: admin，密码: admin123
+ 默认账号
+ 
+ 用户名: admin，密码: admin123
 
-用户名: test，密码: test123
+ 用户名: test，密码: test123
 
 ### 包含的漏洞
 1. SQL注入
@@ -36,10 +36,13 @@ docker compose up --build
 
 text
 用户名: admin' -- 
+
 密码: 任意
+
 修复方案: 使用参数化查询
 
 2. 存储型XSS
+
 位置: 留言板
 
 漏洞描述: 直接存储和显示用户输入，无过滤
@@ -48,8 +51,9 @@ text
 
 ```html
 <script>alert('XSS攻击')</script>
-修复方案: HTML实体编码
 ```
+
+修复方案: HTML实体编码
 ### 漏洞详情
 SQL注入原理
 ```python
@@ -57,8 +61,10 @@ SQL注入原理
 sql = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
 cursor.execute(sql)
 ```
-# 当输入 username = "admin' -- " 时，SQL变为：
-# SELECT * FROM users WHERE username = 'admin' -- ' AND password = '任意'
+ 当输入 username = "admin' -- " 时，SQL变为：
+ 
+ SELECT * FROM users WHERE username = 'admin' -- ' AND password = '任意'
+
 XSS原理
 ```python
 # 危险代码（Flask模板）
@@ -68,8 +74,13 @@ XSS原理
 {{ message[0] }}  # Flask默认转义
 ```
 ### 技术栈
+
 后端: Python Flask
+
 前端: HTML, CSS, JavaScript
+
 数据库: MySQL 8.0
+
 容器: Docker, Docker Compose
+
 部署: 一键容器化部署
